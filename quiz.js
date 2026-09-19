@@ -1,4 +1,4 @@
-const startButton = document.querySelector('.js-start-btn');
+
 const homeScreen = document.querySelector('.js-home-screen');
 const quizScreen = document.querySelector('.js-quiz-screen');
 const resultScreen = document.querySelector('.js-result-screen');
@@ -80,8 +80,50 @@ const questionCards = [
     answer: "false"
   }
 ];
+let highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
 let score = 0;
 let currentQuestionIndex = 0;
+
+function renderHomeScreen() {
+  let homeScreenHTML = `
+    <header class="home-screen-head">
+      <div class="question-mark">
+        &#63;
+      </div>
+      <div>
+        JavaScript Quiz
+      </div>
+    </header>
+    <div class="sub-header">
+      Test your JS knowledge
+    </div>
+    <button class="start-btn js-start-btn">
+      Start Quiz
+    </button>
+    <section>
+      <p class="section">
+        <span class="emoji">🏆</span>
+        High Score: ${highScore}&#47;${questionCards.length}
+      </p>
+      <p class="section">
+        <span class="emoji">🕒</span>
+        ${questionCards.length} Questions &#45; 30s each
+      </p>
+    </section>    
+  `;
+
+  homeScreen.innerHTML = homeScreenHTML;
+  homeScreen.style.display = 'flex';
+
+  const startButton = document.querySelector('.js-start-btn');
+  startButton.addEventListener('click', () => {
+    homeScreen.style.display = 'none';
+    showQuestion();
+  })
+}
+
+renderHomeScreen();
+
 function showQuestion() {
   const questionCard = questionCards[currentQuestionIndex];
   let questionHTML = '';
@@ -151,14 +193,8 @@ function showQuestion() {
 
     return optionHTML;
   }
-
-  startButton.addEventListener('click', () => {
-    homeScreen.style.display = 'none';
-    quizScreen.style.display = 'flex';
-  });  
+    quizScreen.style.display = 'flex';  
 }
-
-showQuestion();
 
 function renderResult() {
   let percentageScore = (score / questionCards.length) * 100;
@@ -194,17 +230,27 @@ function renderResult() {
   resultScreen.style.display = 'flex';
   resultScreen.innerHTML = resultHTML;
 
+  
+
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('highScore', JSON.stringify(highScore))
+  }
+
+
+
+  score = 0;
+  currentQuestionIndex = 0;  
+
   document.querySelector('.js-play-again').addEventListener('click', () => {
-    score = 0;
-    currentQuestionIndex = 0;
     resultScreen.style.display = 'none';
     showQuestion();
-    quizScreen.style.display = 'flex';
   })
 
   document.querySelector('.js-go-home').addEventListener('click', () => {
     resultScreen.style.display = 'none';
-    homeScreen.style.display = 'flex';
+    renderHomeScreen();
   })
 
 }
+

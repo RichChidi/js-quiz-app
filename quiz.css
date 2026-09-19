@@ -29,6 +29,8 @@ body{
   min-height: 80vh;
   justify-content: space-evenly;
   align-items: center;
+  text-align: center;
+  font-size: 22px;
 }
 
 
@@ -52,7 +54,7 @@ body{
   font-size: 22px;
 }
 .start-btn{
-  width: 220px;
+  width: 250px;
   font-size: 30px;
   font-weight: bold;
   padding: 10px;
@@ -67,7 +69,7 @@ body{
   color: blue;
 }
 section{
-  width: 220px;
+  min-width: 250px;
 }
 .section{
   display: flex;
@@ -108,8 +110,9 @@ section{
 }
 
 .quiz-screen-head{
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 22px;
+  margin-top: 50px;
 }
 .question-number{
   width: 350px;
@@ -180,6 +183,7 @@ section{
 
 .result-remark{
   font-size: 25px;
+  font-weight: bold;
 }
 
 .play-again{
