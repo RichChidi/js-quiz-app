@@ -25,7 +25,7 @@ export  function renderHomeScreen() {
       </p>
       <p class="section">
         <span class="emoji">🕒</span>
-        ${questionCards.length} Questions &#45; 30s each
+        ${questionCards.length} Questions &#45; 15s each
       </p>
     </section>    
   `;
