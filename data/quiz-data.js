@@ -79,7 +79,7 @@ export  const questionCards = [
   }
 ];
 export  let highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
-export let highscores = JSON.parse(localStorage.getItem('highscores'));
+export let highscores = JSON.parse(localStorage.getItem('highscores')) || [];
 export  let score = 0;
 export  let currentQuestionIndex = 0;
 export function incrementScore() {
