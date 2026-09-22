@@ -1,4 +1,4 @@
-import {highScore, questionCards, setTimeCount} from "../data/quiz-data.js";
+import {getHighScore, questionCards} from "../data/quiz-data.js";
 import {showQuestion} from "./quiz-screen.js";
 
 const homeScreen = document.querySelector('.js-home-screen');
@@ -21,7 +21,7 @@ export  function renderHomeScreen() {
     <section>
       <p class="section">
         <span class="emoji">🏆</span>
-        High Score: ${highScore}&#47;${questionCards.length}
+        High Score: ${getHighScore()}&#47;${questionCards.length}
       </p>
       <p class="section">
         <span class="emoji">🕒</span>

@@ -5,8 +5,7 @@ import { renderHomeScreen } from "./home-screen.js";
 const quizScreen = document.querySelector('.js-quiz-screen');
 const resultScreen = document.querySelector('.js-result-screen');
 
-export function renderResult() {
-  const name = prompt('input your name');
+export function renderResult(userName = '') {
   let percentageScore = (score / questionCards.length) * 100;
   const remark = percentageScore === 100? `Excellent&#33;`
         : percentageScore < 100 && percentageScore >= 70 ? `Great job&#33;`
@@ -20,7 +19,10 @@ export function renderResult() {
       </svg>
     </div>
     <div class="result-score">
-      ${name}, you scored ${score}&#47;${questionCards.length}&#33;
+      ${
+        userName === ''? `You scored ${score}/${questionCards.length}!`
+         :  `${userName}, you scored ${score}&#47;${questionCards.length}&#33;`
+      }  
     </div>
     <p class="result-remark">
       ${remark}
@@ -28,6 +30,11 @@ export function renderResult() {
     <p>
       You answered ${score} out of ${questionCards.length} correctly
     </p>
+    <div class="input-save-name js-input-save-name">
+      <input placeholder="Enter your name to save your score" class="input-name">
+      <button class="save js-save">Save</button>
+    </div>
+
     <button class="play-again js-play-again">
       Play Again
     </button>
@@ -41,21 +48,36 @@ export function renderResult() {
   resultScreen.style.display = 'flex';
   resultScreen.innerHTML = resultHTML;
 
-  console.log(name);
-  const existingPlayer = highscores.findIndex((player) => player.name === name);
+  let name;
+  const input = document.querySelector('input');
+  document.querySelector('.js-save').onclick = () => {
+    if (!input.value) {
+      alert('Please input your name to save');
+      return;
+    }  else{
+      name = input.value;
+      renderResult(name);
+      document.querySelector('.js-input-save-name').style.display = 'none';
+      console.log(name);
+      if (name) {
+        const existingPlayer = highscores.findIndex((player) => player.name === name);
 
-  if (existingPlayer !== -1) {
-    if (score > highscores[existingPlayer].score) {
-      highscores[existingPlayer].score = score;
+        if (existingPlayer !== -1) {
+          if (score > highscores[existingPlayer].score) {
+            highscores[existingPlayer].score = score;
+          }
+        } else {
+          highscores.push({name: name, score: score});
+        }
+        highscores.sort((a, b) => b.score - a.score);
+
+        saveToStorage();
+
+        resetQuiz(); 
+      }
     }
-  } else {
-    highscores.push({name: name, score: score});
   }
-  highscores.sort((a, b) => b.score - a.score);
-
-  saveToStorage();
-
-  resetQuiz();  
+ 
 
   document.querySelector('.js-play-again').onclick = () => {
     resultScreen.style.display = 'none';

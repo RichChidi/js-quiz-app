@@ -1,6 +1,5 @@
-import {questionCards, highScore, score, currentQuestionIndex} from "./data/quiz-data.js";
 import {renderHomeScreen} from "./scripts/home-screen.js";
-import {showQuestion} from "./scripts/quiz-screen.js";
+
 
 /*
 let homeScreen = document.querySelector('.js-home-screen');

@@ -1,22 +1,31 @@
-import {highscores, questionCards} from "../data/quiz-data.js";
+import {highscores, questionCards, saveToStorage, resetHighScores} from "../data/quiz-data.js";
 
-let highscoresHTML = ``;
+function renderLeaderboard() {
+  let highscoresHTML = ``;
 
-highscores.forEach((player, index) => {
-  if (!highscores) {
+  if (highscores.length === 0) {
     highscoresHTML += `
       No player yet.
 
       Start the quiz, score high and enter the leaderboard.
     `;
   } else{
-    highscoresHTML += `
-      <p class="section">
-        <span class="emoji">${index === 0 ? `🏆` : `🎖️`}</span>
-        <span>${player.name}</span> ${player.score}&#47;${questionCards.length}
-      </p>
-    `;
+    highscores.forEach((player, index) => {
+      highscoresHTML += `
+        <p class="section">
+          <span class="emoji">${index === 0 ? `🏆` : `🎖️`}</span>
+          <span>${player.name}</span> ${player.score}&#47;${questionCards.length}
+        </p>
+      `;
+    })
   }
-});
 
-document.querySelector('.leaderboard-section').innerHTML = highscoresHTML;
+  document.querySelector('.leaderboard-section').innerHTML = highscoresHTML;
+
+  document.querySelector('.js-clear-scores').addEventListener('click', () => {
+    resetHighScores();
+    saveToStorage();
+    renderLeaderboard();
+  });
+}
+renderLeaderboard();

@@ -78,8 +78,23 @@ export  const questionCards = [
     answer: "false"
   }
 ];
-export  let highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
 export let highscores = JSON.parse(localStorage.getItem('highscores')) || [];
+
+export function getHighScore() {
+  let highScore = 0;
+
+  highscores.forEach((player) => {
+    if (player.score > highScore) {
+      highScore = player.score;
+    }
+  });
+
+  return highScore;
+}
+export function resetHighScores() {
+  highscores = [];
+  saveToStorage();
+}
 export  let score = 0;
 export  let currentQuestionIndex = 0;
 export function incrementScore() {
@@ -94,10 +109,6 @@ export function resetQuiz() {
 }
 
 export function saveToStorage() {
-  if (score > highScore) {
-    highScore = score;
-    localStorage.setItem('highScore', JSON.stringify(highScore));
-  }
   localStorage.setItem('highscores', JSON.stringify(highscores));
 }
 export let timeCount;
