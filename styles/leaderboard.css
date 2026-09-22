@@ -1,4 +1,4 @@
-.home-screen{
+.highscores{
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-.home-screen-head{
+.leaderboard-head{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,18 +17,34 @@
   font-weight: bold;
   text-align: center;
 }
-.question-mark{
-  background-color: blue;
-  width: 50px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius:  25px;
-  color: white;
+
+.leaderboard-section{
+  display: grid;
+  grid-template-rows: auto;
+  width: 50%;
+  height: 60vh;
+  font-size: 20px;
+  line-height: 50px;
 }
-.sub-header{
-  font-size: 22px;
+
+.section{
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+  font-size: 19px;
+  justify-content: space-between;
 }
-.start-btn{
-  width: 250px;
+
+.last-section{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 20vh;
+}
+
+.go-home, .clear-scores{
+  width: 220px;
   font-size: 30px;
   font-weight: bold;
   padding: 10px;
@@ -36,18 +52,6 @@
   color: white;
   border-radius: 12px;
   border: none;
-  cursor: pointer;
-}
-.emoji{
-  font-size: 30px;
-  color: blue;
-}
-section{
-  min-width: 250px;
-}
-.section{
-  display: flex;
-  column-gap: 6px;
-  align-items: center;
-  font-size: 19px;
+  cursor: pointer; 
+  margin: 10px;  
 }

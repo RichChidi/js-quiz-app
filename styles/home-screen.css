@@ -1,0 +1,59 @@
+.home-screen{
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  row-gap: 20px;
+  text-align: center;
+}
+
+.home-screen-head{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 55px;
+  font-weight: bold;
+  text-align: center;
+}
+.question-mark{
+  background-color: blue;
+  width: 50px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius:  25px;
+  color: white;
+}
+.sub-header{
+  font-size: 22px;
+}
+.start-btn{
+  width: 250px;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+.emoji{
+  font-size: 30px;
+  color: blue;
+}
+section{
+  min-width: 250px;
+}
+.section{
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+  font-size: 19px;
+}
+
+.leaderboard-link{
+  color: blue;
+  font-size: 25px;
+  font-weight: bold;
+}

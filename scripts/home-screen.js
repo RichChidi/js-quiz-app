@@ -1,4 +1,4 @@
-import {highScore, questionCards} from "../data/quiz-data.js";
+import {highScore, questionCards, setTimeCount} from "../data/quiz-data.js";
 import {showQuestion} from "./quiz-screen.js";
 
 const homeScreen = document.querySelector('.js-home-screen');
@@ -27,7 +27,8 @@ export  function renderHomeScreen() {
         <span class="emoji">🕒</span>
         ${questionCards.length} Questions &#45; 15s each
       </p>
-    </section>    
+    </section> 
+    <a href="leaderboard.html" class="leaderboard-link">View Leaderboard ➡️</a>   
   `;
 
   homeScreen.innerHTML = homeScreenHTML;

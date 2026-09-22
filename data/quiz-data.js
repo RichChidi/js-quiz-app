@@ -79,6 +79,7 @@ export  const questionCards = [
   }
 ];
 export  let highScore = JSON.parse(localStorage.getItem('highScore')) || 0;
+export let highscores = JSON.parse(localStorage.getItem('highscores'));
 export  let score = 0;
 export  let currentQuestionIndex = 0;
 export function incrementScore() {
@@ -95,8 +96,9 @@ export function resetQuiz() {
 export function saveToStorage() {
   if (score > highScore) {
     highScore = score;
-    localStorage.setItem('highScore', JSON.stringify(highScore))
+    localStorage.setItem('highScore', JSON.stringify(highScore));
   }
+  localStorage.setItem('highscores', JSON.stringify(highscores));
 }
 export let timeCount;
 export let timerId;
@@ -104,18 +106,17 @@ export function setTimeCount() {
   timeCount = 15;
 }
 export function startTimer() {
-  setTimeCount();
   clearInterval(timerId);
+  setTimeCount();
   timerId = setInterval(() => {
     if (timeCount > 0){
       if (timeCount <= 5) {
         document.querySelector('.js-right-section').style.color = 'red';
       }
-      document.querySelector('.js-timer').innerHTML = timeCount; 
+
+      document.querySelector('.js-timer').innerHTML = timeCount;
       timeCount--;
-     
     } else {
-      clearInterval(timerId);
       nextQuestion();
     }
   }, 1000) 
@@ -123,6 +124,7 @@ export function startTimer() {
 }
 
 export function nextQuestion() {
+    clearInterval(timerId);
     incrementIndex();
     if (currentQuestionIndex < questionCards.length) {
       showQuestion();
