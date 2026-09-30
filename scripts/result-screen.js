@@ -1,12 +1,12 @@
-import { score, questionCards, highscores, resetQuiz, saveToStorage} from "../data/quiz-data.js";
+import { score, highscores, resetQuiz, saveToStorage, questionCards} from "../data/quiz-data.js";
 import { showQuestion } from "./quiz-screen.js";
-import { renderHomeScreen } from "./home-screen.js";
+import { renderHomeScreen} from "./home-screen.js";
 
 const quizScreen = document.querySelector('.js-quiz-screen');
 const resultScreen = document.querySelector('.js-result-screen');
 
 export function renderResult(userName = '') {
-  let percentageScore = (score / questionCards.length) * 100;
+  let percentageScore = ((score / questionCards.length) * 100).toFixed(1);
   const remark = percentageScore === 100? `Excellent&#33;`
         : percentageScore < 100 && percentageScore >= 70 ? `Great job&#33;`
         : percentageScore < 70 && percentageScore >= 50 ? `Good`
@@ -20,8 +20,8 @@ export function renderResult(userName = '') {
     </div>
     <div class="result-score">
       ${
-        userName === ''? `You scored ${score}/${questionCards.length}!`
-         :  `${userName}, you scored ${score}&#47;${questionCards.length}&#33;`
+        userName === ''? `You scored ${percentageScore}%`
+         :  `${userName}, you scored ${percentageScore}%`
       }  
     </div>
     <p class="result-remark">
@@ -58,16 +58,15 @@ export function renderResult(userName = '') {
       name = input.value;
       renderResult(name);
       document.querySelector('.js-input-save-name').style.display = 'none';
-      console.log(name);
       if (name) {
         const existingPlayer = highscores.findIndex((player) => player.name === name);
 
         if (existingPlayer !== -1) {
-          if (score > highscores[existingPlayer].score) {
-            highscores[existingPlayer].score = score;
+          if (percentageScore > highscores[existingPlayer].score) {
+            highscores[existingPlayer].score = `${percentageScore}`;
           }
         } else {
-          highscores.push({name: name, score: score});
+          highscores.push({name: name, score: `${percentageScore}`});
         }
         highscores.sort((a, b) => b.score - a.score);
 
@@ -80,11 +79,13 @@ export function renderResult(userName = '') {
  
 
   document.querySelector('.js-play-again').onclick = () => {
+    resetQuiz(); 
     resultScreen.style.display = 'none';
     showQuestion();
   };
 
   document.querySelector('.js-go-home').onclick = () => {
+    resetQuiz(); 
     resultScreen.style.display = 'none';
     renderHomeScreen();
   };

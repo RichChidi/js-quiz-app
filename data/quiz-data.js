@@ -1,7 +1,41 @@
 import {showQuestion} from "../scripts/quiz-screen.js";
 import {renderResult} from "../scripts/result-screen.js";
 
-export  const questionCards = [
+export let questionCards = [];
+export async function loadQuestions(category, difficulty) {
+  try {
+    const response = await fetch(`https://opentdb.com/api.php?amount=15&category=${category}&difficulty=${difficulty}&type=multiple`);
+
+    if (!response.ok) throw new Error (`Network error: ${response.status}`);
+
+    const data =  await response.json();
+
+    if (data.response_code !== 0) {
+      if (data.response_code === 1) throw new Error(`No questions found for that category/difficulty.`);
+      if (data.response_code === 4) throw new Error(`Too many requests. Wait 5 seconds and try again`);
+      throw new Error(`API returned an error.`);
+    }
+
+    const result = data.results;
+
+    if (!result || result.length === 0) {
+      throw new Error (`Empty data from API.`);
+    } 
+
+    const formattedQuestions = result.map((q) => {
+      return {
+        question: q.question,
+        options: [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5),
+        answer: q.correct_answer
+      }
+    });
+    questionCards = formattedQuestions;     
+  } catch(error) {
+    console.log('loadQuestions failed:', error);
+    throw error;
+  }
+}
+ /*[
   {
     question: "Which language runs in a web browser?",
     options: ["Java", "C", "Python", "JavaScript"],
@@ -77,7 +111,13 @@ export  const questionCards = [
     options: ["true", "false", "0", "undefined"],
     answer: "false"
   }
-];
+] */;
+export async function loadCategories() {
+  const response = await fetch('https://opentdb.com/api_category.php');
+  const data =  await response.json();
+  return data.trivia_categories;
+}
+
 export let highscores = JSON.parse(localStorage.getItem('highscores')) || [];
 
 export function getHighScore() {

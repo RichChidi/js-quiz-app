@@ -14,7 +14,7 @@ function renderLeaderboard() {
       highscoresHTML += `
         <p class="section">
           <span class="emoji">${index === 0 ? `🏆` : `🎖️`}</span>
-          <span>${player.name}</span> ${player.score}&#47;${questionCards.length}
+          <span>${player.name}</span> ${player.score}%
         </p>
       `;
     })
