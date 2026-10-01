@@ -76,9 +76,25 @@ section{
   background: white;
   min-height: 10vh;
   width: 100%;
-  padding: 10px;
+  max-width: 400px;
+  padding: 5px;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin-bottom: 5px;
   border: none;
+}
+
+@media (max-width: 400px) {
+  .category, .difficulty{
+    max-width: 190px;
+    font-size: 19px;
+  }
+}
+
+.pick-category, .pick-level{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+  justify-content: space-between;
 }

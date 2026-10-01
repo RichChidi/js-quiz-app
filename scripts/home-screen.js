@@ -16,14 +16,14 @@ export  function renderHomeScreen() {
       Test your knowledge across categories
     </div>
     <div class="start-quiz-div">
-      <div>
-        <label></label> <br>
+      <div class="pick-category">
+        <label>Select a category:</label> <br>
         <select class="category js-category">
 
         </select>
       </div>
-      <div>
-        <label></label><br>
+      <div class="pick-level">
+        <label>Chose level:</label><br>
         <select class="difficulty js-difficulty">
           <option value="" class="option">--pick a level--</option>
           <option value="easy" class="option">Easy</option>
@@ -51,7 +51,7 @@ export  function renderHomeScreen() {
   homeScreen.innerHTML = homeScreenHTML;
   loadCategories().then((questionCategories) => {
 
-    let categoryHTML = '<option value="">--Select a category--</option>';
+    let categoryHTML = '<option value="">--Select category--</option>';
     questionCategories.forEach((category) => {
       categoryHTML += `
         <option value="${category.id}" class="${category.name} option">${category.name}</option>
